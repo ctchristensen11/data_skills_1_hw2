@@ -5,6 +5,8 @@
 # CTCHRISTENSEN
 # CTCHRISTENSEN11
 
+#Collaborated with Victor Hinardi and Rimjhim Agrawal
+
 # Due date: Sunday April 17th before midnight
 # Write your answers in the space between the questions, and commit/push only 
 # this file to your repo. Note that there can be a difference between giving a
@@ -75,7 +77,7 @@ import string
 
 def get_random_password(length, special_chars=True ):
     if length < 8 or length > 16:
-        return "Not a good length"
+        return "Not a good length, passwords should be between 8 and 16 characters in length"
     else:
         if special_chars == True:
             characters = string.ascii_letters + string.digits + string.punctuation
@@ -85,9 +87,10 @@ def get_random_password(length, special_chars=True ):
             password = ''.join(random.choice(characters) for i in range(length))
     return password
  
-get_random_password()   
-
-
+get_random_password(14) 
+get_random_password(6) 
+get_random_password(22)
+get_random_password(12, special_chars=False)
 
 # https://www.geeksforgeeks.org/ython-select-random-value-from-a-list/
 #https://pynative.com/python-generate-random-string/
@@ -115,39 +118,32 @@ get_random_password()
 # (e.g. [name, vaccine, doses, covid], [...])
 
 class COVIDData():
-    def __get_record__():
-        pass
-    def 
-
-class HouseValues():
-    def __init__(self, num_bedrooms, num_baths, sqft):
-        self.num_bedrooms = num_bedrooms
-        self.num_baths = num_baths
-        self.sqft = sqft
-    
-    def pick_a_neighborhood(self):
-        value = random.normal(1, 0.1)
-        if value > 1.2:
-            print('Whoa, you got an expensive neighborhood!')
-        elif value > 1:
-            print('Fairly pricy neighborhood.')
-        elif value < 1:
-            print('Maybe not the nicest neighborhood.')
-        return value
+    def __init__(self, name, vaccine, doses, covid):
+        self.name = name
+        self.vaccine = vaccine
+        self.doses = doses
+        self.covid = covid
+    def __get_record__(self):
+        if (self.covid == True):
+            print(self.name, "has had", self.doses, "dose of", self.vaccine, "and has been positive for COVID")
+        else:
+            print(self.name, "has had", self.doses, "dose of", self.vaccine, "and has never been positive for COVID")
+    def __same_shot__(self, __init__):
+        if self.vaccine == __init__.vaccine:
+            print(self.name, "and", __init__.name, "received the same vaccine brand")
+        else:
+            print(self.name, "and", __init__.name, "received different vaccine brands")
+    def all_data(self, *narg):
+        data = [[arg.name, arg.vaccine, arg.doses, arg.covid] for arg in narg]
+        return data
         
-    def estimate_value(self):
-        #add 10% per num of bedrooms over 1
-        bedroom_mod = ((self.num_bedrooms - 1) * 0.1) + 1
+case1 = COVIDData("Aaron", "Moderna", 1, False)
+case2 = COVIDData("Ashu", "Pfizer", 2, False)
+case3 = COVIDData("Alison", "none", 0, True)
+case4 = COVIDData("Asma", "Pfizer", 1, True)
+case1.__get_record__()
+case2.__same_shot__(case4)
+case1.all_data(case2, case3, case4)
         
-        #add 5% per num of baths over 1
-        bath_mod = ((self.num_baths - 1) * 0.05) + 1
-        
-        n_mod = self.pick_a_neighborhood()
-        
-        self.value = (self.sqft * 400) * bedroom_mod * bath_mod * n_mod
-        print(f'I estimate this house will be worth ${round(self.value, 2)}')
-        
-house1 = HouseValues(2, 2, 950)
-house2 = HouseValues(1, 1, 700)
-house1.estimate_value()
-house2.estimate_value()
+#https://realpython.com/python-kwargs-and-args/
+#https://pynative.com/python-instance-variables/
